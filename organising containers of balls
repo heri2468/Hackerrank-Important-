@@ -1,0 +1,36 @@
+string organizingContainers(vector<vector<int>> container) 
+{
+
+  int n=container.size();
+  vector<long long int> totalAmount(n, 0);
+	vector<long long int> how_much_to_change(n, 0);
+
+	int index = 0;
+	for (int i = 0; i < n; i++)
+	{
+		container[i].resize(n);
+		for (int p = 0; p < n; p++)
+		{
+			totalAmount[p] += container[i][p];
+			how_much_to_change[index] += container[i][p];
+		}
+		index++;
+	}
+
+	sort(totalAmount.begin(), totalAmount.end());
+	sort(how_much_to_change.begin(), how_much_to_change.end());
+
+	bool b = true;
+
+	for (int i = 0; i < n; i++)
+	{
+		if (totalAmount[i] != how_much_to_change[i]) 
+		{
+			b = false;
+			break;
+		}
+	}
+	string s = b == true? "Possible":"Impossible";
+
+	return s;
+}
