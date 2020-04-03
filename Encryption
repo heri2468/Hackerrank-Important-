@@ -1,0 +1,43 @@
+string encryption(string s) {
+        string new_s= ""; //new string for  storing the spaceless string s
+        string encrypt_ans="";   // string to be returned with the encrypted message
+        int compresslength=0,row=0,col=0;  // compresslength to store the length of new string
+        for(int i=0;i<s.length();i++)      
+        {
+                if(s[i]==' ')
+                continue;
+                else
+                new_s+=s[i];
+        }
+        compresslength=new_s.length();
+        row=floor(sqrt(compresslength)); 
+        col= ceil(sqrt(compresslength));
+        if(row*col<compresslength)// if row* col is less than length of new string , then consider diagonal elements
+        {
+                row=col;
+
+        }
+        vector<vector<char>>mat(row,vector<char>(col));   // 2d array to store the string in matrix form
+        int k=0;//iterator count to store the string in matrix
+        for(int i=0;i<row;i++)
+        {
+                for(int j=0;j<col;j++)
+                {
+                        mat[i][j]=new_s[k];
+                        k++;
+                }
+        }
+        //since the encrypted message is stored column wise, so traversing by column
+        for(int i=0;i<col;i++)
+        {
+                for(int j=0;j<row;j++)
+                {
+                        char c=mat[j][i];
+                        if(c)
+                        encrypt_ans+=c;
+
+                }
+                encrypt_ans+=' ';
+        }
+        return encrypt_ans;
+        }
