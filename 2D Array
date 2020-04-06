@@ -1,0 +1,12 @@
+int hourglassSum(vector<vector<int>> arr) {
+  vector<int> res;
+    res.reserve(18);
+
+    for(unsigned int j=0; j<4;++j){
+        for(unsigned int i=0; i<4;++i){
+            res.push_back(arr[i][j]+arr[i][j+1]+arr[i][j+2]+
+                             arr[i+1][j+1]+
+                    arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2]);
+        }
+    }
+    return *max_element(res.begin(),res.end());
