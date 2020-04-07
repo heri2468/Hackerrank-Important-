@@ -1,0 +1,24 @@
+long arrayManipulation(int n, vector<vector<int>> queries) {
+       long int a,b,k,i,j,max=0,x=0;
+
+    
+    long int *res=new long int[n+1]();
+
+    for(i=0;i<queries.size();i++)
+    {
+        a=queries[i][0];
+        b=queries[i][1];
+        k=queries[i][2];
+        res[a]+=k;
+        if((b+1)<=n) res[b+1]-=k;
+    }
+
+    for(i=1;i<=n;i++)
+    {
+       x=x+res[i];
+       if(max<x) max=x;
+
+    }
+return max;
+
+}
