@@ -1,0 +1,34 @@
+bool isInside(int nx, int ny, vector<string> &grid) {
+    return (nx >= 0 && nx < grid.size() && ny >= 0 && ny < grid.size());
+}
+// Complete the minimumMoves function below.
+int minimumMoves(vector<string> grid, int startX, int startY, int goalX, int goalY) {
+queue<pair<int, int>> q;
+    pair<int, int> start = make_pair(startX, startY), end = make_pair(goalX, goalY);
+    pair<int, int> dirs[4] = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+    vector<vector<int>> minMove(grid.size(), vector<int>(grid.size(), 0));
+    q.push(start);
+    minMove[start.first][start.second] = 1;
+    while (!q.empty()) {
+        pair<int, int> cur = q.front();
+        q.pop();
+        for (int i = 0; i < 4; i++) {
+            for (int range = 1; range < grid.size(); range++) {
+                int nx = (dirs[i].first * range) + cur.first;
+                int ny = (dirs[i].second * range) + cur.second;
+                if ((isInside(nx, ny, grid) && grid[nx][ny] == 'X') || !isInside(nx, ny, grid)) {
+                    break; // Pass Next Direction
+                }
+                if (!minMove[nx][ny]) {
+                    if (nx == end.first && ny == end.second) {
+                        return minMove[cur.first][cur.second];
+                    }
+                    q.push({nx, ny});
+                    minMove[nx][ny] = minMove[cur.first][cur.second] + 1;
+                }
+            }
+        }
+    }
+    return -1;
+
+}
