@@ -1,0 +1,49 @@
+   vector<int> getPrimes(int n) {
+    vector<int> primes(n);
+    int i = 0;
+    int k = 2;
+    bool isPrime;
+    while (i < n) {
+        isPrime = true;
+        for (int i_k = 2; i_k <= sqrt(k); i_k++) {
+            if (k % i_k == 0)
+                isPrime = false;
+        }
+        if (isPrime)
+            primes[i++] = k;
+        k++;
+    }
+    return primes;
+}
+vector<int> waiter(vector<int> number, int q) {
+    vector<int> result;
+    vector<int> primes = getPrimes(q);
+    int prime;
+    vector<int> A = number;
+    vector<int> A1;
+    vector<int> B1;
+    for (int i = 0; i < q; i++) {
+        A1= {};
+        prime = primes[i];
+        if (A.size() == 0)
+            break;
+        while (!A.empty()) {
+            if (A.back() % prime == 0)
+                B1.push_back(A.back());
+            else
+                A1.push_back(A.back());
+            A.pop_back();
+        }
+        A = A1;
+        
+        while (!B1.empty()) {
+            result.push_back(B1.back());
+            B1.pop_back();
+        }
+    }
+    while (!A1.empty()) {
+        result.push_back(A1.back());
+        A1.pop_back();
+    }
+    return result;
+}
