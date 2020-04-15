@@ -1,0 +1,28 @@
+def nextgreaterleft(arr,n):
+    s=[]
+    left_index=[0]*n
+    for i in range(n-1,-1,-1):
+        while len(s)!=0 and arr[i]>arr[s[-1]-1]:
+            r=s.pop()
+            left_index[r-1]=i+1
+        s.append(i+1)
+    return left_index
+    
+def nextgreaterright(arr,n):
+    s=[]
+    right_index=[0]*n
+    for i in range(n):
+        while len(s)!=0 and arr[i]>arr[s[-1]-1]:
+            r=s.pop()
+            right_index[r-1]=i+1
+        s.append(i+1)
+    return right_index
+
+def solve(arr):
+    n=len(arr)    
+    l=nextgreaterleft(arr,n)
+    r=nextgreaterright(arr,n)
+    ans=-1
+    for i in range(n):
+        ans=max(ans,l[i]*r[i])
+    return ans
