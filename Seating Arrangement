@@ -1,0 +1,49 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int main() {
+    
+    int n,i,ele,res=0;
+    vector<int> stu;
+    vector<int> count(5,0);
+    
+    cin>>n;
+    
+    for(i=0;i<n;i++)
+    {
+        cin>>ele;
+        stu.push_back(ele);
+        count[ele]++;
+    }
+    
+    res+=count[4]+count[3];
+
+    res+=(count[2]/2);
+        
+    count[2]=count[2]%2;
+    res+=count[2];
+    
+    int sum = count[2]*2+count[3];
+    
+    if(count[1]>sum)
+    {
+        count[1]-=sum;
+    
+        if(count[1]%4==0)
+            res+=count[1]/4;
+        else    
+            res+=(count[1]/4)+1;
+    }
+    
+    cout<<res;
+    
+    return 0;
+}
+ 
